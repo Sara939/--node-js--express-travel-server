@@ -26,13 +26,11 @@ const DeleteStates= (req,res) => {
         res.send('id not exsist in data')
     }
 };
-
 function findIndexOfObject(array, req){
     const foundObject= array.find( obj => obj.id == req.params.id)
     const startIndex= array.indexOf(foundObject);
     return startIndex
 }
-
 
 module.exports= {
     GetStates,

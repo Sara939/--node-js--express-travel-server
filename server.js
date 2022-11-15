@@ -11,7 +11,7 @@ app.use(express.json({extended: true}));
 app.use(express.urlencoded({extended:true}));
 app.use('/travel', trvelrouter);
 app.use('/airlines', airlinesRouter);
-app.use('flights', flightsRouter);
+app.use('/flights', flightsRouter);
 
 
 app.get('/', (req,res) => {
