@@ -45,8 +45,7 @@ const Postwantedflight= (req,res)=>{
 const Postdepartureandhour= (req,res)=>{
     let openflights = flights.filter(seats =>  seats.availableseats > 0)
     const filterdflights= openflights.filter(flight =>flight.from ==req.body.from && flight.departure == req.body.departure);
-    filterdflights ? res.send(filterdflights) : res.send("no seats");
-       
+    !filterdflights ? res.send(filterdflights) : res.send("no seats");/////////////////////// 
 };
 
   
