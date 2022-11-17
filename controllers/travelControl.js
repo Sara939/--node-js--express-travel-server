@@ -1,7 +1,8 @@
 const statemodel= require('../models/states-model');
 
+
 const GetStates= (req,res) => {
-    res.send({massage: "sucsess", statemodel})
+    res.send({massage: "sucsess", statemodel});
 };
 const GetStatesById= (req,res) => {
     const stateId= statemodel.find(ste=> ste.id == req.params.id);
@@ -10,6 +11,7 @@ const GetStatesById= (req,res) => {
 const PostStates= (req,res) => {
     statemodel.push(req.body.newState)
     res.send({massage: "added", statemodel})
+
     
 };
 const PutStates= (req,res) => {
@@ -26,6 +28,8 @@ const DeleteStates= (req,res) => {
         res.send('id not exsist in data')
     }
 };
+
+
 function findIndexOfObject(array, req){
     const foundObject= array.find( obj => obj.id == req.params.id)
     const startIndex= array.indexOf(foundObject);

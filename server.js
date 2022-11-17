@@ -1,3 +1,5 @@
+const dotenv= require('dotenv');
+dotenv.config();
 const express = require('express');
 const app = express();
 const cors= require('cors');
@@ -5,7 +7,9 @@ const port = 8080;
 const trvelrouter = require('./routes/travelRouter');
 const airlinesRouter = require('./routes/airlinesRouter');
 const flightsRouter = require('./routes/flightsRouter');
-const users=  require('./models/usersmodel')
+const userRouter = require('./routes/usersRouter');
+const {Postlogin}= require('./controllers/userscontorl');
+
 
 app.use(cors());
 app.use(express.json({extended: true}));
@@ -34,32 +38,35 @@ app.use(express.urlencoded({extended:true}));
 // }
 // };
 
-const trmiddleware= (req,res,next)=>{
-    if (req.method== 'POST'){
-        console.log(' this is travel');
-        return next()
-    }
-    console.log('not post');
-    return next()
-};
+// const trmiddleware= (req,res,next)=>{
+//     if (req.method== 'POST'){
+//         console.log(' this is travel');
+//         return next()
+//     }
+//     console.log('not post');
+//     return next()
+// };
 
 const usersMiddleware= (req,res,next)=>{
-    const finduser= users.find(user=> req.body.email == user.email);
-    if (finduser){
-        finduser.password == req.body.password ? next() : res.send("password not correct");
-        
+    if (Postlogin){
+        return next();
     }else{
-        res.send("you are not signed up user")
+        return res.send("unable to connect")
     }
+
 };
 
 // app.use(newMiddleware);
 // app.use(urlMiddleware);
 
+app.use(usersMiddleware);
 
-app.use('/travel', trmiddleware, trvelrouter);
-app.use('/airlines', usersMiddleware, airlinesRouter);
+
+app.use('/travel' , trvelrouter);
+app.use('/airlines', airlinesRouter);
 app.use('/flights',flightsRouter);
+app.use('/users', userRouter);
+
 
 
 app.get('/', (req,res) => {

@@ -4,7 +4,7 @@ const {
     GetStatesById,
     PostStates,
     PutStates,
-    DeleteStates
+    DeleteStates,
 } = require('../controllers/travelControl');
 
 trvelrouter.get('/',GetStates );
