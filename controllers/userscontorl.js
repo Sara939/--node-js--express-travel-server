@@ -1,4 +1,4 @@
-const users= require('../models/usersmodel');
+const users= require('../models/users-model');
 const {matchingPasswords, confirmEmail, ageLimit, chackuseremail} = require("../validation/validpassword");
 
 

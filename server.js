@@ -2,8 +2,10 @@ const dotenv= require('dotenv');
 dotenv.config();
 const express = require('express');
 const app = express();
-const cors= require('cors');
 const port = 8080;
+const cors= require('cors');
+const db= require('./db/index');
+
 const trvelrouter = require('./routes/travelRouter');
 const airlinesRouter = require('./routes/airlinesRouter');
 const flightsRouter = require('./routes/flightsRouter');
@@ -74,5 +76,7 @@ app.get('/', (req,res) => {
 });
 
 app.listen(port, (req,res) => {
+    // console.log(process.env.DB_LOCAL_CONNECTION);
     console.log(`server on in port ${port}`);
+
 });

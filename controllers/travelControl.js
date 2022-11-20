@@ -1,7 +1,8 @@
-const statemodel= require('../models/states-model');
+const stateModel= require('../models/states-model');
 
 
 const GetStates= (req,res) => {
+    stateModel.find()
     res.send({massage: "sucsess", statemodel});
 };
 const GetStatesById= (req,res) => {
