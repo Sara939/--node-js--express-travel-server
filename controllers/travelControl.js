@@ -1,35 +1,58 @@
 const stateModel= require('../models/states-model');
 
 
-const GetStates= (req,res) => {
-    stateModel.find()
-    res.send({massage: "sucsess", statemodel});
-};
-const GetStatesById= (req,res) => {
-    const stateId= statemodel.find(ste=> ste.id == req.params.id);
-    stateId ? res.send({stateId}): res.send('states id dosnt exsist in data')
-};
-const PostStates= (req,res) => {
-    statemodel.push(req.body.newState)
-    res.send({massage: "added", statemodel})
-
-    
-};
-const PutStates= (req,res) => {
-    const stateId= statemodel.find(ste=> ste.id == req.params.id);
-    stateId? (Object.assign(stateId, req.body.state), res.send({massage: "updated",statemodel})): res.send("not exist")
-    
-};
-const DeleteStates= (req,res) => {
-    startIndex= findIndexOfObject(statemodel, req);
-    if(startIndex> -1){
-        statemodel.splice(startIndex,1);
-        res.send({massage: "deleted", statemodel})
-    }else{
-        res.send('id not exsist in data')
-    }
+const GetStates= async (req,res) => {
+    await stateModel.find({})
+        .then((results,err)=>{
+        if (err){
+            return res.status(400).json({success:false, massage:err})
+        }
+        if(results.length==0){
+            return res.json({success: false, massage:"no states to show"})
+        }
+        res.status(200).json({success:true, data: results});
+    });
+ 
 };
 
+const GetStatesById= async (req,res) => {
+    await stateModel.findById(req.params.id)
+    .then((data)=>{
+        if(!data){
+            return res.json({success:false, massage:'state dont avilable' })
+        }
+        res.status(200).json({success:true, data:data})
+    })
+    .catch(err=> res.status(400).json({success:false, massage:err}))
+    
+};
+
+const PostStates= async (req,res) => {
+    await stateModel.insertMany(req.body.newState)
+    .then(()=>{
+        return res.status(200).json({success:true, massage: "add"})
+    })
+    .catch(err=>res.status(400).json({success:false, err}))
+};
+
+
+const PutStates= async (req,res) => {
+    await stateModel.findByIdAndUpdate(req.params.id, req.body)
+    .then((result) =>{
+        return res.status(200).json({success:true, result})
+    })
+    .catch(err=>res.status(400).json({success:false, err}))
+
+ 
+};
+
+const DeleteStates= async(req,res) => {
+    await stateModel.findByIdAndDelete(req.params.id)
+    .then(()=>{
+        return res.status(200).json({success:true})
+    })
+    .catch(err=>res.status(400).json({success:false, err}))
+};
 
 function findIndexOfObject(array, req){
     const foundObject= array.find( obj => obj.id == req.params.id)

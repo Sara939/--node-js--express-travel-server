@@ -13,7 +13,7 @@ const Flight= new Schema({
     availableseats:Number
 })
 
-module.exports= module('flights',Flight)
+module.exports= Mongoose.model('flights',Flight);
 
 // const flights = [
 //     {id:0, flightnumber: 653, from: "TLV", to:"JFK" ,  seats: 100 , departure: 5, arrival: 10, firstclass: true, availableseats: 2},

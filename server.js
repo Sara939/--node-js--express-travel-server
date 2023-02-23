@@ -10,8 +10,7 @@ const trvelrouter = require('./routes/travelRouter');
 const airlinesRouter = require('./routes/airlinesRouter');
 const flightsRouter = require('./routes/flightsRouter');
 const userRouter = require('./routes/usersRouter');
-const {Postlogin}= require('./controllers/userscontorl');
-
+// const {Postlogin}= require('./controllers/userscontorl');
 
 app.use(cors());
 app.use(express.json({extended: true}));
@@ -49,26 +48,23 @@ app.use(express.urlencoded({extended:true}));
 //     return next()
 // };
 
-const usersMiddleware= (req,res,next)=>{
-    if (Postlogin){
-        return next();
-    }else{
-        return res.send("unable to connect")
-    }
-
-};
+// const usersMiddleware= (req,res,next)=>{
+//     if (Postlogin){
+//         return next();
+//     }else{
+//         return res.send("unable to connect")
+//     }
+// };
 
 // app.use(newMiddleware);
 // app.use(urlMiddleware);
+// app.use(usersMiddleware);
 
-app.use(usersMiddleware);
 
-
-app.use('/travel' , trvelrouter);
+app.use('/travel', trvelrouter);
 app.use('/airlines', airlinesRouter);
-app.use('/flights',flightsRouter);
+app.use('/flights', flightsRouter);
 app.use('/users', userRouter);
-
 
 
 app.get('/', (req,res) => {
@@ -78,5 +74,4 @@ app.get('/', (req,res) => {
 app.listen(port, (req,res) => {
     // console.log(process.env.DB_LOCAL_CONNECTION);
     console.log(`server on in port ${port}`);
-
 });

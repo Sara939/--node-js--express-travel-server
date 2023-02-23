@@ -2,7 +2,7 @@
 const mongoose= require('mongoose');
 
 ///conecting
-mongoose.connect(process.env.DB_LOCAL_CONNECTION, {
+mongoose.connect(process.env.REACT_APP_DB_LOCAL_CONNECTION, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 })
